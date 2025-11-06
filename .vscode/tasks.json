@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Git commit Recite B2B",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"index.html",
+				";",
+				"git",
+				"commit",
+				"-m",
+				"feat: add Recite (B2B) experience and update summary",
+				";",
+				"git",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
