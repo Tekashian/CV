@@ -346,6 +346,12 @@ body.dark-mode .job-title {
     color: #1f2937;
     font-family: 'Courier New', monospace;
     font-weight: 600;
+    /* Prevent layout jump while typing by reserving space */
+    display: inline-block;
+    line-height: 1.4;
+    min-height: 1.4em; /* keep height even when empty */
+    white-space: nowrap; /* avoid wrapping during typing */
+    vertical-align: bottom;
 }
 
 body.dark-mode .typing-effect {

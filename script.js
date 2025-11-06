@@ -31,8 +31,33 @@ function erase() {
     }
 }
 
-// Start typing effect when page loads
+// Start typing effect when page loads (lock width to avoid layout shift)
 document.addEventListener('DOMContentLoaded', () => {
+    try {
+        if (typedTextElement) {
+            const probe = document.createElement('span');
+            const cs = window.getComputedStyle(typedTextElement);
+            // Mirror key text styles for accurate measurement
+            probe.style.cssText = `position:absolute;left:-9999px;top:-9999px;white-space:nowrap;` +
+                `font-family:${cs.fontFamily};font-size:${cs.fontSize};font-weight:${cs.fontWeight};letter-spacing:${cs.letterSpacing};`;
+            document.body.appendChild(probe);
+            let max = 0;
+            textArray.forEach(t => {
+                probe.textContent = t;
+                const w = probe.getBoundingClientRect().width;
+                if (w > max) max = w;
+            });
+            document.body.removeChild(probe);
+            // Ensure the element doesn't wrap and has a fixed width based on the longest phrase
+            typedTextElement.style.whiteSpace = 'nowrap';
+            typedTextElement.style.display = 'inline-block';
+            typedTextElement.style.width = Math.ceil(max) + 'px';
+            // Reserve at least one line height to avoid vertical jump (if CSS not already doing it)
+            if (!typedTextElement.style.minHeight) {
+                typedTextElement.style.minHeight = cs.lineHeight && cs.lineHeight !== 'normal' ? cs.lineHeight : cs.fontSize;
+            }
+        }
+    } catch (e) { /* non-blocking */ }
     setTimeout(type, 1000);
 });
 
