@@ -5,9 +5,10 @@
 }
 
 :root {
-    --primary-color: #0ea5e9;
-    --secondary-color: #6366f1;
-    --accent-color: #059669;
+    /* Professional, PDF-safe palette */
+    --primary-color: #0ea5e9;   /* blue */
+    --secondary-color: #6366f1; /* indigo */
+    --accent-color: #059669;    /* green */
     --dark-bg: #0a0a0a;
     --card-bg: rgba(20, 20, 40, 0.8);
     --text-light: #e0e0e0;
@@ -19,14 +20,15 @@
 }
 
 /* PDF-specific styles */
+/* Keep the same palette on print so colors match screen */
 @media print {
     :root {
-        --primary-color: #000000;
-        --secondary-color: #000000;
-        --accent-color: #000000;
-        --text-dark: #000000;
+        --primary-color: #0ea5e9;
+        --secondary-color: #6366f1;
+        --accent-color: #059669;
+        --text-dark: #111827;
         --bg-light: #ffffff;
-        --border-light: #000000;
+        --border-light: #cbd5e1;
     }
 }
 
@@ -147,14 +149,16 @@ body.dark-mode .cv-container {
     background: transparent;
 }
 
+/* Removed WOW theme toggle */
+
 /* Header Section */
 .header-section {
-    background: #9ca3af;
-    border-radius: 20px;
-    padding: 60px 40px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 50px 40px;
     margin-bottom: 40px;
-    border: 3px solid #1f2937;
-    box-shadow: none;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     position: relative;
     overflow: hidden;
 }
@@ -358,17 +362,18 @@ body.dark-mode .typing-effect {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 15px;
-    background: #6b7280;
-    border-radius: 10px;
-    border: 3px solid #111827;
-    transition: all 0.3s ease;
+    padding: 14px 16px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 
 .contact-item:hover {
-    background: #4b5563;
-    transform: translateX(5px);
-    border-color: #0c4a6e;
+    background: #f8fafc;
+    transform: translateX(4px);
+    border-color: #bae6fd;
 }
 
 body.dark-mode .contact-item {
@@ -398,13 +403,22 @@ body.dark-mode .contact-item:hover {
 
 /* Section Styles */
 .section {
-    background: #9ca3af;
-    border-radius: 20px;
-    padding: 40px;
-    margin-bottom: 40px;
-    border: 3px solid #1f2937;
-    box-shadow: none;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 36px 34px;
+    margin-bottom: 34px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     animation: fadeInUp 0.6s ease-out;
+    position: relative;
+}
+.section::before {
+    content:'';
+    position:absolute;
+    top:0;left:0;bottom:0;width:6px;
+    background: linear-gradient(180deg,var(--primary-color),var(--secondary-color));
+    border-top-left-radius:18px;
+    border-bottom-left-radius:18px;
 }
 
 body.dark-mode .section {
@@ -460,11 +474,14 @@ body.dark-mode .section-title {
 }
 
 .skill-category {
-    background: #6b7280;
-    padding: 25px;
-    border-radius: 15px;
-    border: 3px solid #111827;
+    background: #ffffff;
+    padding: 22px 22px 20px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    position: relative;
 }
+.skill-category::before {content:'';position:absolute;top:0;left:0;width:4px;bottom:0;background:linear-gradient(180deg,var(--primary-color),var(--secondary-color));border-top-left-radius:14px;border-bottom-left-radius:14px;}
 
 body.dark-mode .skill-category {
     background: rgba(0, 0, 0, 0.3);
@@ -512,11 +529,11 @@ body.dark-mode .skill-level {
 
 .skill-bar {
     height: 10px;
-    background: #d1d5db;
+    background: #f1f5f9;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    border: 3px solid #111827;
+    border: 1px solid #cbd5e1;
 }
 
 body.dark-mode .skill-bar {
@@ -525,11 +542,11 @@ body.dark-mode .skill-bar {
 
 .skill-progress {
     height: 100%;
-    background: #111827;
+    background: linear-gradient(90deg,var(--primary-color),var(--secondary-color));
     border-radius: 10px;
     width: var(--progress);
     animation: fillBar 1.5s ease-out;
-    box-shadow: none;
+    box-shadow: 0 0 4px rgba(14,165,233,0.4);
 }
 
 body.dark-mode .skill-progress {
@@ -554,7 +571,8 @@ body.dark-mode .skill-progress {
     top: 0;
     bottom: 0;
     width: 4px;
-    background: #111827;
+    background: linear-gradient(180deg,var(--primary-color),var(--secondary-color));
+    border-radius: 4px;
 }
 
 body.dark-mode .timeline::before {
@@ -586,11 +604,12 @@ body.dark-mode .timeline-marker {
 }
 
 .timeline-content {
-    background: #6b7280;
-    padding: 25px;
-    border-radius: 15px;
-    border: 3px solid #111827;
+    background: #ffffff;
+    padding: 22px 24px 20px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
     transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 
 .timeline-content:hover {
@@ -716,12 +735,13 @@ body.dark-mode .tech-tag:hover {
 }
 
 .education-card {
-    background: #6b7280;
-    padding: 30px;
-    border-radius: 15px;
-    border: 3px solid #111827;
+    background: #ffffff;
+    padding: 26px 24px 24px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
     text-align: center;
     transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 
 .education-card:hover {
@@ -796,13 +816,14 @@ body.dark-mode .description {
 }
 
 .project-card {
-    background: #6b7280;
-    padding: 30px;
-    border-radius: 15px;
-    border: 3px solid #111827;
+    background: #ffffff;
+    padding: 28px 26px 24px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 
 body.dark-mode .project-card {
@@ -1318,18 +1339,18 @@ body.pdf-export .timeline-content,
 body.pdf-export .education-card,
 body.pdf-export .project-card,
 body.pdf-export .contact-item {
-    background: #f2f3f5 !important;
-    border-color: #111827 !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
     box-shadow: none !important;
     opacity: 1 !important;
 }
-body.pdf-export .skill-bar { background: #e2e5e9 !important; border-color:#111827 !important; }
-body.pdf-export .skill-progress { background:#111827 !important; box-shadow:none !important; }
-body.pdf-export .timeline::before { background:#111827 !important; }
-body.pdf-export .timeline-marker { background:#111827 !important; box-shadow:none !important; }
-body.pdf-export .tech-tag { background:#e2e5e9 !important; color:#111827 !important; border-color:#111827 !important; }
-body.pdf-export .profile-image { background:#ffffff !important; color:#111827 !important; border-color:#111827 !important; }
-body.pdf-export .section-title::after { background:#111827 !important; opacity:0.3 !important; }
+body.pdf-export .skill-bar { background: #f1f5f9 !important; border:1px solid #cbd5e1 !important; }
+body.pdf-export .skill-progress { background: linear-gradient(90deg,var(--primary-color),var(--secondary-color)) !important; box-shadow:none !important; }
+body.pdf-export .timeline::before { background: linear-gradient(180deg,var(--primary-color),var(--secondary-color)) !important; }
+body.pdf-export .timeline-marker { background: var(--primary-color) !important; box-shadow:none !important; border:4px solid #ffffff !important; }
+body.pdf-export .tech-tag { background:#e0f2fe !important; color:#0c4a6e !important; border:1px solid #93c5fd !important; }
+body.pdf-export .profile-image { background:#ffffff !important; color:#111827 !important; border:3px solid #cbd5e1 !important; }
+body.pdf-export .section-title::after { background: linear-gradient(90deg,var(--primary-color),transparent) !important; opacity:1 !important; }
 /* Hide decorative / dynamic layers */
 body.pdf-export .background-animation,
 body.pdf-export .particle,
