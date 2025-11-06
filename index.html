@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Futurystyczne Portfolio</title>
+    <title>CV - Futuristic Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -29,7 +29,7 @@
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
-        Pobierz PDF
+        Download PDF
     </button>
 
     <div class="cv-container" id="cv-content">
@@ -38,11 +38,16 @@
                 <div class="profile-image-wrapper">
                     <div class="hologram-effect"></div>
                     <div class="profile-image">
-                        <span class="avatar-placeholder">JK</span>
+                        <img
+                            src="assets/photos/me.jpg"
+                            alt="Profile photo – Jakub Lacki"
+                            class="profile-photo"
+                            onerror="this.onerror=null; this.src='assets/photos/profile-placeholder.svg'"
+                        />
                     </div>
                 </div>
                 <div class="header-info">
-                    <h1 class="glitch" data-text="Jan Kowalski">Jan Kowalski</h1>
+                    <h1 class="glitch" data-text="Jakub Lacki">Jakub Lacki</h1>
                     <p class="job-title">Full-Stack & Blockchain Developer</p>
                     <span id="typed-text" class="typing-effect"></span>
                 </div>
@@ -80,7 +85,7 @@
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
                     </div>
-                    <span>Warszawa, Polska</span>
+                    <span>Warsaw, Poland</span>
                 </div>
                 <div class="contact-item">
                     <div class="icon-wrapper">
@@ -97,9 +102,9 @@
 
         <!-- Summary Section -->
         <section class="section summary-section">
-            <h2 class="section-title"><span class="title-icon">🧩</span> Podsumowanie</h2>
+            <h2 class="section-title"><span class="title-icon">🧩</span> Summary</h2>
             <p style="font-weight:600;line-height:1.55;">
-                Full‑Stack & Blockchain Developer z doświadczeniem komercyjnym (Reckitt 2022–2025) oraz rozwojem własnej zdecentralizowanej platformy PolyFund (crowdfunding web3, testnet – w toku). Pracuję z Next.js, React, Vue, Node.js i modularnymi kontraktami (Hardhat). Tworzę boty w Go monitorujące adresy na Solanie i BSC z minimalnym opóźnieniem oraz dbam o płynne migracje modułów (Core / Storage) bez przestojów frontendu. Silny w komunikacji i tworzeniu precyzyjnych promptów – przyspieszam synchronizację front ↔ backend ↔ warstwa on‑chain.
+                Full‑Stack & Blockchain Developer with commercial experience (Reckitt 2022–2025) and author of PolyFund – a decentralized crowdfunding platform (testnet – in progress). Working with Next.js, React, Vue, Node.js and modular smart contracts (Hardhat). I build Go bots monitoring addresses on Solana & BSC with minimal latency and design smooth module migrations (Core / Storage) without frontend downtime. Strong in communication and prompt engineering – accelerating alignment across frontend, backend and on‑chain layers.
             </p>
         </section>
 
@@ -107,7 +112,7 @@
         <section class="section skills-section">
             <h2 class="section-title">
                 <span class="title-icon">⚡</span>
-                Umiejętności Techniczne
+                Technical Skills
             </h2>
             <div class="skills-grid">
                 <div class="skill-category">
@@ -213,7 +218,7 @@
 
         <!-- Experience Section (updated real entries) -->
         <section class="section experience-section">
-            <h2 class="section-title"><span class="title-icon">💼</span> Doświadczenie Zawodowe</h2>
+            <h2 class="section-title"><span class="title-icon">💼</span> Professional Experience</h2>
             <div class="timeline">
                 <!-- Reckitt -->
                 <div class="timeline-item">
@@ -225,10 +230,10 @@
                         </div>
                         <p class="company">Reckitt</p>
                         <ul class="achievements">
-                            <li>Budowa i utrzymanie landing page’y marketingowych (standaryzacja komponentów)</li>
-                            <li>Wdrażanie testów jakości (unit / e2e) dla kluczowych ścieżek użytkownika</li>
-                            <li>Refaktoryzacja i modularizacja frontendu dla szybszych iteracji</li>
-                            <li>Optymalizacje krytycznego renderowania (CSS / pierwsze ładowanie)</li>
+                            <li>Built & maintained marketing landing pages (component standardization)</li>
+                            <li>Introduced quality tests (unit / e2e) for key user flows</li>
+                            <li>Refactored & modularized frontend for faster iterations</li>
+                            <li>Optimized critical rendering path (CSS / first load)</li>
                         </ul>
                         <div class="tech-tags">
                             <span class="tech-tag">React</span>
@@ -243,15 +248,15 @@
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <div class="timeline-header">
-                            <h3>Autor / Full-Stack & Web3</h3>
-                            <span class="timeline-date">04.2025 - Obecnie</span>
+                            <h3>Author / Full-Stack & Web3</h3>
+                            <span class="timeline-date">Apr 2025 - Present</span>
                         </div>
-                        <p class="company">PolyFund (projekt własny – testnet)</p>
+                        <p class="company">PolyFund (personal project – testnet)</p>
                         <ul class="achievements">
-                            <li>MVP zdecentralizowanej platformy crowdfundingowej (kampanie / dotacje on‑chain)</li>
-                            <li>Modularna architektura kontraktów (Core / Storage) – upgrade bez przestoju UI</li>
-                            <li>Integracja Next.js z warstwą Web3 (event listenery / szybkie odświeżenie po deployu)</li>
-                            <li>Prompty i specyfikacje usprawniające migracje kontraktów (szybsze przełączenie front ↔ backend)</li>
+                            <li>MVP of decentralized crowdfunding platform (campaigns / on‑chain grants)</li>
+                            <li>Modular contract architecture (Core / Storage) – upgrades with zero UI downtime</li>
+                            <li>Next.js ⇄ Web3 integration (event listeners / rapid state refresh post‑deploy)</li>
+                            <li>Prompts & specs accelerating contract migrations (faster front ↔ backend alignment)</li>
                         </ul>
                         <div class="tech-tags">
                             <span class="tech-tag">Next.js</span>
@@ -266,14 +271,14 @@
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <div class="timeline-header">
-                            <h3>Boty blockchain – Go / AWS</h3>
+                            <h3>Blockchain Bots – Go / AWS</h3>
                             <span class="timeline-date">2025</span>
                         </div>
-                        <p class="company">Projekt własny</p>
+                        <p class="company">Personal project</p>
                         <ul class="achievements">
-                            <li>Boty w Go monitorujące adresy na Solanie i BSC z minimalnym opóźnieniem</li>
-                            <li>Dynamiczne listy adresów – skalowanie bez twardych limitów</li>
-                            <li>Alerty / analityka transakcji – baza do narzędzi risk‑monitoring</li>
+                            <li>Go bots monitoring addresses on Solana & BSC with minimal latency</li>
+                            <li>Dynamic address lists – scalable without hard limits</li>
+                            <li>Alerts / transaction analytics – foundation for risk‑monitoring tools</li>
                         </ul>
                         <div class="tech-tags">
                             <span class="tech-tag">Go</span>
@@ -290,36 +295,36 @@
         <section class="section education-section">
             <h2 class="section-title">
                 <span class="title-icon">🎓</span>
-                Edukacja & Certyfikaty
+                Education & Certifications
             </h2>
             <div class="education-grid">
                 <div class="education-card">
-                    <div class="education-icon">🏛️</div>
-                    <h3>Informatyka (nieukończone)</h3>
-                    <p class="institution">Wojskowa Akademia</p>
-                    <p class="year">2018 - 2020</p>
-                    <p class="description">Podstawy algorytmów, sieci i programowania</p>
-                </div>
-                <div class="education-card">
                     <div class="education-icon">🏆</div>
-                    <h3>Bootcamp Full Stack Developer</h3>
+                    <h3>Full Stack Developer Certificate</h3>
                     <p class="institution">AppBrewery (Udemy)</p>
                     <p class="year">2018</p>
-                    <p class="description">Node, Express, MongoDB, React – podstawy komercyjne</p>
+                    <p class="description">Node, Express, MongoDB, React – commercial fundamentals</p>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">🧠</div>
+                    <h3>Independent Blockchain Developer</h3>
+                    <p class="institution">Self‑taught</p>
+                    <p class="year">2020 – Present</p>
+                    <p class="description">Designing and integrating smart contracts, Web3 frontends & real-time on‑chain monitoring tooling.</p>
                 </div>
             </div>
         </section>
 
         <!-- Interests Section -->
         <section class="section interests-section">
-            <h2 class="section-title"><span class="title-icon">🧠</span> Zainteresowania</h2>
+            <h2 class="section-title"><span class="title-icon">🧠</span> Interests</h2>
             <ul class="achievements" style="columns:2;max-width:900px;">
-                <li>Web3 / zdecentralizowane modele finansowania</li>
-                <li>Monitoring on‑chain / alerty transakcyjne</li>
-                <li>Modularne architektury i upgrade kontraktów</li>
-                <li>Optymalizacja frontendu (render / CSS)</li>
-                <li>Prompt Engineering & szybkie prototypowanie</li>
-                <li>Automatyzacja analityki blockchain (boty)</li>
+                <li>Web3 / decentralized funding models</li>
+                <li>On‑chain monitoring / transaction alerts</li>
+                <li>Modular architectures & contract upgrades</li>
+                <li>Frontend performance (render / CSS)</li>
+                <li>Prompt engineering & rapid prototyping</li>
+                <li>Automation of blockchain analytics (bots)</li>
             </ul>
         </section>
 
@@ -327,75 +332,81 @@
         <section class="section projects-section">
             <h2 class="section-title">
                 <span class="title-icon">🚀</span>
-                Projekty Wyróżniające
+                Featured Projects
             </h2>
             <div class="projects-grid">
+                <!-- PolyFund -->
                 <div class="project-card">
                     <div class="project-glow"></div>
-                    <h3>E-Commerce Platform</h3>
+                    <h3>PolyFund — Decentralized Crowdfunding (testnet)</h3>
                     <p class="project-description">
-                        Kompleksowa platforma handlowa z systemem płatności, zarządzaniem magazynem i panelem analitycznym.
+                        MVP of a Web3 crowdfunding platform. Modular smart contracts (Core / Storage) with zero‑downtime upgrades and a Next.js frontend integrated via Ethers.js.
                     </p>
                     <div class="project-stats">
                         <div class="stat">
-                            <span class="stat-value">1M+</span>
-                            <span class="stat-label">Użytkowników</span>
+                            <span class="stat-value">Testnet</span>
+                            <span class="stat-label">Status</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-value">99.9%</span>
-                            <span class="stat-label">Uptime</span>
+                            <span class="stat-value">Modular</span>
+                            <span class="stat-label">Contracts</span>
                         </div>
                     </div>
                     <div class="tech-tags">
                         <span class="tech-tag">Next.js</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Hardhat</span>
+                        <span class="tech-tag">Solidity</span>
+                        <span class="tech-tag">Ethers.js</span>
                     </div>
                 </div>
 
+                <!-- On-Chain Monitoring Bots -->
                 <div class="project-card">
                     <div class="project-glow"></div>
-                    <h3>Real-Time Analytics Dashboard</h3>
+                    <h3>On‑Chain Monitoring Bots</h3>
                     <p class="project-description">
-                        Dashboard z wizualizacją danych w czasie rzeczywistym dla zespołów biznesowych i technicznych.
+                        Go services monitoring tracked addresses on Solana & BSC with low‑latency alerts and scalable, dynamic address lists.
                     </p>
                     <div class="project-stats">
                         <div class="stat">
-                            <span class="stat-value">500K</span>
-                            <span class="stat-label">Events/day</span>
+                            <span class="stat-value">Solana · BSC</span>
+                            <span class="stat-label">Chains</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-value">&lt;100ms</span>
-                            <span class="stat-label">Latency</span>
+                            <span class="stat-value">Go · AWS</span>
+                            <span class="stat-label">Runtime</span>
+                        </div>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">AWS Lambda</span>
+                        <span class="tech-tag">Solana</span>
+                        <span class="tech-tag">BSC</span>
+                    </div>
+                </div>
+
+                <!-- Marketing Landing System -->
+                <div class="project-card">
+                    <div class="project-glow"></div>
+                    <h3>Marketing Landing System</h3>
+                    <p class="project-description">
+                        Standardized component library and test suite powering brand landing pages; focus on performance, accessibility and reliable releases.
+                    </p>
+                    <div class="project-stats">
+                        <div class="stat">
+                            <span class="stat-value">Full‑Stack</span>
+                            <span class="stat-label">Role</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">Perf · QA</span>
+                            <span class="stat-label">Focus</span>
                         </div>
                     </div>
                     <div class="tech-tags">
                         <span class="tech-tag">React</span>
-                        <span class="tech-tag">WebSocket</span>
-                        <span class="tech-tag">Redis</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-glow"></div>
-                    <h3>AI-Powered Chatbot</h3>
-                    <p class="project-description">
-                        Inteligentny chatbot z NLP do automatyzacji obsługi klienta i wsparcia technicznego.
-                    </p>
-                    <div class="project-stats">
-                        <div class="stat">
-                            <span class="stat-value">95%</span>
-                            <span class="stat-label">Accuracy</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">24/7</span>
-                            <span class="stat-label">Available</span>
-                        </div>
-                    </div>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Jest</span>
                     </div>
                 </div>
             </div>
@@ -403,7 +414,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>CV / Portfolio – aktualizacja: 2025 • Dostępność: od zaraz • EN: C1 (komunikacyjnie)</p>
+            <p>CV / Portfolio – updated: 2025 • Availability: immediate • EN: C1 (conversational)</p>
         </footer>
     </div>
 
