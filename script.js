@@ -100,6 +100,8 @@ document.getElementById('downloadPDF').addEventListener('click', async () => {
             logging: false,
             backgroundColor: '#ffffff'
         },
+        // Make anchors clickable inside the exported PDF
+        enableLinks: true,
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
         pagebreak: { mode: ['css', 'legacy'] }
     };
