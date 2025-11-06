@@ -380,6 +380,29 @@ body.dark-mode .typing-effect {
     border: 1px solid #e2e8f0;
     transition: all 0.2s ease;
     box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    /* allow inner text to shrink/wrap inside card */
+    min-width: 0;
+}
+
+/* Remove underline and inherit color for links inside contact section */
+.contact-grid a,
+.contact-item a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 700;
+    /* prevent overflow of long e-mails/URLs */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    min-width: 0;
+    flex: 1;
+}
+
+/* If plain spans are used for values (e.g., phone/location), keep same wrapping behavior */
+.contact-item span:not(.material-symbols-rounded) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    min-width: 0;
+    flex: 1;
 }
 
 .contact-item:hover {

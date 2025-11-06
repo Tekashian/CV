@@ -1,10 +1,10 @@
 // Typing Effect
 const typedTextElement = document.getElementById('typed-text');
 const textArray = [
-    'Tworzę nowoczesne aplikacje webowe',
-    'Specjalizuję się w Full-Stack Development',
-    'Pasjonuję się nowymi technologiami',
-    'Rozwiązuję złożone problemy biznesowe'
+    'I build modern web applications',
+    'Full‑Stack & Blockchain Developer',
+    'I love shipping reliable products',
+    'I solve complex business problems'
 ];
 let textArrayIndex = 0;
 let charIndex = 0;
@@ -75,7 +75,7 @@ document.getElementById('downloadPDF').addEventListener('click', async () => {
     const button = document.getElementById('downloadPDF');
     const originalText = button.innerHTML;
 
-    button.innerHTML = '<span>Generowanie PDF…</span>';
+    button.innerHTML = '<span>Generating PDF…</span>';
     button.disabled = true;
 
     const element = document.getElementById('cv-content');
@@ -109,7 +109,7 @@ document.getElementById('downloadPDF').addEventListener('click', async () => {
     try {
         // Pierwsza próba (standardowa)
         await runExport();
-        showNotification('PDF został pobrany pomyślnie!');
+    showNotification('PDF downloaded successfully!');
     } catch (err1) {
         console.warn('1. próba PDF nieudana:', err1);
 
@@ -124,17 +124,17 @@ document.getElementById('downloadPDF').addEventListener('click', async () => {
         if (inlined) {
             try {
                 await runExport();
-                showNotification('PDF pobrany (obrazki wstawione inline).');
+                showNotification('PDF downloaded (images inlined).');
             } catch (err2) {
                 console.warn('2. próba PDF nieudana:', err2);
                 // Trzecia próba — bez obrazów jako awaryjna
                 const hidden = hideImages(element);
                 try {
                     await runExport();
-                    showNotification('PDF pobrany bez obrazów (tryb awaryjny).');
+                    showNotification('PDF downloaded without images (fallback).');
                 } catch (err3) {
                     console.error('3. próba PDF nieudana:', err3);
-                    showNotification('Błąd generowania PDF. Uruchom lokalny serwer i spróbuj ponownie.', 'error');
+                    showNotification('PDF generation failed. Start a local server and try again.', 'error');
                 } finally {
                     showImages(hidden);
                 }
@@ -147,10 +147,10 @@ document.getElementById('downloadPDF').addEventListener('click', async () => {
             const hidden = hideImages(element);
             try {
                 await runExport();
-                showNotification('PDF pobrany bez obrazów (tryb awaryjny).');
+                showNotification('PDF downloaded without images (fallback).');
             } catch (err4) {
                 console.error('Awaryjna próba PDF nieudana:', err4);
-                showNotification('Błąd generowania PDF. Uruchom lokalny serwer i spróbuj ponownie.', 'error');
+                showNotification('PDF generation failed. Start a local server and try again.', 'error');
             } finally {
                 showImages(hidden);
             }
@@ -469,6 +469,6 @@ if ('IntersectionObserver' in window) {
 }
 
 // Add console message for developers
-console.log('%c🚀 Witaj w moim CV! 🚀', 'color: #0ea5e9; font-size: 24px; font-weight: bold;');
-console.log('%cJeśli to czytasz, to znaczy że jesteś ciekawy technologii - dokładnie takiego programisty szukasz! 😊', 'color: #059669; font-size: 14px;');
-console.log('%cSpróbuj kodu Konami: ↑ ↑ ↓ ↓ ← → ← → B A', 'color: #6366f1; font-size: 12px;');
+console.log('%c🚀 Welcome to my CV! 🚀', 'color: #0ea5e9; font-size: 24px; font-weight: bold;');
+console.log('%cIf you are reading this, you are curious about tech — that is a great fit! 😊', 'color: #059669; font-size: 14px;');
+console.log('%cTry the Konami code: ↑ ↑ ↓ ↓ ← → ← → B A', 'color: #6366f1; font-size: 12px;');
