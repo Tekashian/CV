@@ -243,12 +243,24 @@ body.dark-mode .header-section::before {
     position: relative;
     z-index: 1;
     border: 4px solid #111827;
+    /* Ensure the inner photo cannot overflow and distort layout */
+    overflow: hidden;
 }
 
 body.dark-mode .profile-image {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     box-shadow: 0 0 30px rgba(14, 165, 233, 0.4);
+}
+
+/* Constrain the actual image inside the circular frame */
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Slight upward crop looks better for portraits */
+    object-position: 50% 38%;
+    display: block;
 }
 
 .avatar-placeholder {

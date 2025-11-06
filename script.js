@@ -74,60 +74,166 @@ document.querySelectorAll('.section').forEach(section => {
 document.getElementById('downloadPDF').addEventListener('click', async () => {
     const button = document.getElementById('downloadPDF');
     const originalText = button.innerHTML;
-    
-    // Show loading state
-    button.innerHTML = '<span>Generowanie PDF...</span>';
+
+    button.innerHTML = '<span>Generowanie PDF…</span>';
     button.disabled = true;
-    
+
     const element = document.getElementById('cv-content');
 
-    // Enter export mode: freeze animations/effects and ensure final state
+    // 1) Wejście w tryb eksportu (zamraża animacje i ustawia finalne szerokości pasków)
     enterPdfExportMode();
 
-    // Allow a short reflow so styles settle (fonts / layout)
+    // 2) Preload obrazów z bezpiecznym CORS (na http/https)
+    try { await preloadImages(element); } catch(e) { console.warn('Preload obrazów nie powiódł się:', e); }
+
+    // 3) Krótki reflow
     await new Promise(r => requestAnimationFrame(() => setTimeout(r, 120)));
 
-    const opt = {
+    const baseOptions = {
         margin: [10, 10, 10, 10],
-        filename: 'Jan_Kowalski_CV.pdf',
+        filename: 'Jakub_Lacki_CV.pdf',
         image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: { 
+        html2canvas: {
             scale: 2,
             useCORS: true,
             letterRendering: true,
             logging: false,
             backgroundColor: '#ffffff'
         },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
-            orientation: 'portrait',
-            compress: true
-        },
-        // Do not force a page break before every .section — let content flow naturally.
-        // For reliable pagination we rely on CSS and html2pdf defaults.
-        pagebreak: {
-            mode: ['css', 'legacy']
-        }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+        pagebreak: { mode: ['css', 'legacy'] }
     };
 
-    // Generate PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-        // Reset button state
-        button.innerHTML = originalText;
-        button.disabled = false;
-        
-        // Show success message
+    const runExport = () => html2pdf().set(baseOptions).from(element).save();
+
+    try {
+        // Pierwsza próba (standardowa)
+        await runExport();
         showNotification('PDF został pobrany pomyślnie!');
-        exitPdfExportMode();
-    }).catch((error) => {
-        console.error('Błąd podczas generowania PDF:', error);
+    } catch (err1) {
+        console.warn('1. próba PDF nieudana:', err1);
+
+        // Druga próba — z inlinowaniem obrazów (tylko na http/https)
+        let inlined = false;
+        try {
+            inlined = await inlineImages(element);
+        } catch (e) {
+            console.warn('Inlinowanie obrazów nie powiodło się:', e);
+        }
+
+        if (inlined) {
+            try {
+                await runExport();
+                showNotification('PDF pobrany (obrazki wstawione inline).');
+            } catch (err2) {
+                console.warn('2. próba PDF nieudana:', err2);
+                // Trzecia próba — bez obrazów jako awaryjna
+                const hidden = hideImages(element);
+                try {
+                    await runExport();
+                    showNotification('PDF pobrany bez obrazów (tryb awaryjny).');
+                } catch (err3) {
+                    console.error('3. próba PDF nieudana:', err3);
+                    showNotification('Błąd generowania PDF. Uruchom lokalny serwer i spróbuj ponownie.', 'error');
+                } finally {
+                    showImages(hidden);
+                }
+            } finally {
+                // Przywróć src obrazów po ewentualnym inlinowaniu
+                restoreInlinedImages(element);
+            }
+        } else {
+            // Brak możliwości inline — spróbuj trybu awaryjnego bez obrazów
+            const hidden = hideImages(element);
+            try {
+                await runExport();
+                showNotification('PDF pobrany bez obrazów (tryb awaryjny).');
+            } catch (err4) {
+                console.error('Awaryjna próba PDF nieudana:', err4);
+                showNotification('Błąd generowania PDF. Uruchom lokalny serwer i spróbuj ponownie.', 'error');
+            } finally {
+                showImages(hidden);
+            }
+        }
+    } finally {
         button.innerHTML = originalText;
         button.disabled = false;
-        showNotification('Wystąpił błąd podczas generowania PDF', 'error');
         exitPdfExportMode();
-    });
+    }
 });
+
+// Preload obrazów i ustaw crossOrigin tam gdzie to bezpieczne
+async function preloadImages(root) {
+    const isHttp = location.protocol.startsWith('http');
+    const imgs = Array.from(root.querySelectorAll('img'));
+    await Promise.all(imgs.map(img => new Promise((resolve, reject) => {
+        const src = img.getAttribute('src');
+        if (!src) return resolve();
+        if (isHttp) img.crossOrigin = 'anonymous';
+        const tester = new Image();
+        if (isHttp) tester.crossOrigin = 'anonymous';
+        tester.onload = () => resolve();
+        tester.onerror = () => resolve(); // nie blokuj — mamy fallbacki
+        tester.src = src;
+    })));
+}
+
+// Inline obrazków: podmień src na dataURL (działa tylko na http/https)
+async function inlineImages(root) {
+    if (!location.protocol.startsWith('http')) return false;
+    const imgs = Array.from(root.querySelectorAll('img'));
+    const tasks = imgs.map(async img => {
+        const src = img.getAttribute('src');
+        if (!src || src.startsWith('data:')) return null;
+        try {
+            const res = await fetch(src, { cache: 'force-cache', mode: 'cors' });
+            const blob = await res.blob();
+            const dataUrl = await blobToDataURL(blob);
+            img.setAttribute('data-original-src', src);
+            img.src = dataUrl;
+            return img;
+        } catch (e) {
+            console.warn('Nie udało się inlineować', src, e);
+            return null;
+        }
+    });
+    await Promise.all(tasks);
+    return true;
+}
+
+function restoreInlinedImages(root) {
+    root.querySelectorAll('img[data-original-src]').forEach(img => {
+        const orig = img.getAttribute('data-original-src');
+        if (orig) img.src = orig;
+        img.removeAttribute('data-original-src');
+    });
+}
+
+function blobToDataURL(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
+}
+
+// Awaryjnie ukryj obrazki
+function hideImages(root) {
+    const list = [];
+    root.querySelectorAll('img').forEach(img => {
+        const prevDisplay = img.style.display;
+        list.push({ img, prevDisplay });
+        img.style.display = 'none';
+    });
+    return list;
+}
+
+function showImages(hiddenList) {
+    hiddenList.forEach(({ img, prevDisplay }) => {
+        img.style.display = prevDisplay;
+    });
+}
 
 // Freeze animations/observers and set final widths for progress bars
 function enterPdfExportMode() {
