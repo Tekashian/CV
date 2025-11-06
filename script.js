@@ -104,9 +104,10 @@ document.getElementById('downloadPDF').addEventListener('click', async () => {
             orientation: 'portrait',
             compress: true
         },
-        pagebreak: { 
-            mode: ['avoid-all', 'css', 'legacy'],
-            before: '.section'
+        // Do not force a page break before every .section — let content flow naturally.
+        // For reliable pagination we rely on CSS and html2pdf defaults.
+        pagebreak: {
+            mode: ['css', 'legacy']
         }
     };
 
