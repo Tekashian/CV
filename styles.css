@@ -390,6 +390,28 @@ body.dark-mode .typing-effect {
     min-width: 0;
 }
 
+.contact-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.2;
+}
+
+.contact-sublabel {
+    font-size: 11px;
+    font-weight: 600;
+    color: #334155;
+    text-decoration: none;
+    margin-top: 2px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.contact-sublabel:hover { color: #0c4a6e; }
+
+body.dark-mode .contact-sublabel { color: var(--text-dim); }
+body.dark-mode .contact-sublabel:hover { color: var(--primary-color); }
+
 /* Remove underline and inherit color for links inside contact section */
 .contact-grid a,
 .contact-item a {
@@ -1313,6 +1335,15 @@ body.dark-mode .stat-label {
         color: #000000 !important;
     }
 
+    /* Keep headings with following content and avoid splitting blocks */
+    h1, h2, h3, .section-title { page-break-after: avoid !important; break-after: avoid-page !important; }
+    p, li, .timeline-item, .timeline-content, .project-card, .education-card, .skill-category, .contact-grid { 
+        page-break-inside: avoid !important; 
+        break-inside: avoid !important; 
+    }
+    /* Reduce widows/orphans for paragraphs if supported */
+    p { widows: 3; orphans: 3; }
+
     /* Hide animations in PDF */
     * {
         animation: none !important;
@@ -1392,6 +1423,19 @@ body.pdf-export .timeline-marker { background: var(--primary-color) !important; 
 body.pdf-export .tech-tag { background:#e0f2fe !important; color:#0c4a6e !important; border:1px solid #93c5fd !important; }
 body.pdf-export .profile-image { background:#ffffff !important; color:#111827 !important; border:3px solid #cbd5e1 !important; }
 body.pdf-export .section-title::after { background: linear-gradient(90deg,var(--primary-color),transparent) !important; opacity:1 !important; }
+/* Keep headings with their next block and avoid splitting key cards during export */
+body.pdf-export h1,
+body.pdf-export h2,
+body.pdf-export h3,
+body.pdf-export .section-title { page-break-after: avoid !important; break-after: avoid-page !important; }
+body.pdf-export p,
+body.pdf-export li,
+body.pdf-export .timeline-item,
+body.pdf-export .timeline-content,
+body.pdf-export .project-card,
+body.pdf-export .education-card,
+body.pdf-export .skill-category,
+body.pdf-export .contact-grid { page-break-inside: avoid !important; break-inside: avoid !important; }
 /* Hide decorative / dynamic layers */
 body.pdf-export .background-animation,
 body.pdf-export .particle,
@@ -1418,6 +1462,30 @@ body.pdf-export .stat-value,
 body.pdf-export .stat-label { color:#111827 !important; opacity:1 !important; -webkit-text-fill-color:#111827 !important; }
 /* Remove width animation dependency */
 body.pdf-export .skill-progress { animation:none !important; }
+
+
+
+
+/* ===== Additional Print Optimizations (second pass) ===== */
+@media print {
+    @page { size: A4; margin: 10mm 10mm 12mm 10mm; }
+    body { font-size:12.5px !important; line-height:1.4 !important; }
+    .cv-container { padding:0 !important; }
+    .section { margin-bottom:10px !important; padding:12px 12px !important; }
+    .section::before { display:none !important; }
+    .section-title { font-size:22px !important; border-bottom:2px solid #000 !important; padding-bottom:8px !important; margin-bottom:14px !important; }
+    .header-info h1 { font-size:28px !important; }
+    .timeline { padding-left:36px !important; }
+    .timeline::before { width:2px !important; }
+    .timeline-marker { width:14px !important; height:14px !important; border:2px solid #fff !important; }
+    .timeline-header h3 { font-size:18px !important; }
+    .achievements li { margin-bottom:4px !important; }
+    .skills-grid { grid-template-columns:1fr 1fr !important; gap:12px !important; }
+    .education-grid, .projects-grid { grid-template-columns:1fr !important; gap:12px !important; }
+        .contact-grid { gap:10px !important; page-break-inside:auto !important; break-inside:auto !important; }
+    /* Allow paragraphs and list items to split to reduce large blank areas */
+    p, li { page-break-inside:auto !important; break-inside:auto !important; }
+}
 
 
 

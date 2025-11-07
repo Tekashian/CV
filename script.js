@@ -128,7 +128,11 @@ document.getElementById('downloadPDF').addEventListener('click', async () => {
         // Make anchors clickable inside the exported PDF
         enableLinks: true,
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-        pagebreak: { mode: ['css', 'legacy'] }
+        // Avoid splitting key elements across pages
+        pagebreak: { 
+            mode: ['css', 'legacy'],
+            avoid: 'p, li, h1, h2, h3, .section-title, .timeline-item, .timeline-content, .project-card, .education-card, .skill-category, .contact-grid'
+        }
     };
 
     const runExport = () => html2pdf().set(baseOptions).from(element).save();
