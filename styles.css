@@ -1397,12 +1397,14 @@ body.pdf-export, body.pdf-export * {
     filter: none !important;
     backdrop-filter: none !important;
     text-shadow: none !important;
+    overflow: visible !important;
 }
 body.pdf-export {
     background: #ffffff !important;
 }
 body.pdf-export .cv-container {
     background: #ffffff !important;
+    padding: 12px 12px 16px 12px !important;
 }
 body.pdf-export .header-section,
 body.pdf-export .section,
@@ -1424,18 +1426,23 @@ body.pdf-export .tech-tag { background:#e0f2fe !important; color:#0c4a6e !import
 body.pdf-export .profile-image { background:#ffffff !important; color:#111827 !important; border:3px solid #cbd5e1 !important; }
 body.pdf-export .section-title::after { background: linear-gradient(90deg,var(--primary-color),transparent) !important; opacity:1 !important; }
 /* Keep headings with their next block and avoid splitting key cards during export */
+/* Don’t force headings to carry content on the same page; reduces large gaps */
 body.pdf-export h1,
 body.pdf-export h2,
 body.pdf-export h3,
-body.pdf-export .section-title { page-break-after: avoid !important; break-after: avoid-page !important; }
-body.pdf-export p,
-body.pdf-export li,
+body.pdf-export .section-title { page-break-after: auto !important; break-after: auto !important; }
+/* Allow text blocks to split to eliminate large gaps, but keep key cards/items intact */
 body.pdf-export .timeline-item,
 body.pdf-export .timeline-content,
 body.pdf-export .project-card,
 body.pdf-export .education-card,
-body.pdf-export .skill-category,
-body.pdf-export .contact-grid { page-break-inside: avoid !important; break-inside: avoid !important; }
+body.pdf-export .skill-category { page-break-inside: avoid !important; break-inside: avoid !important; }
+body.pdf-export p,
+body.pdf-export li { page-break-inside: auto !important; break-inside: auto !important; widows: 2; orphans: 2; }
+/* Let contact grid flow naturally across pages */
+body.pdf-export .contact-grid { page-break-inside: auto !important; break-inside: auto !important; }
+/* Slightly tighter vertical rhythm in export */
+body.pdf-export .section { margin-bottom: 12px !important; }
 /* Hide decorative / dynamic layers */
 body.pdf-export .background-animation,
 body.pdf-export .particle,
