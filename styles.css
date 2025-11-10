@@ -1118,6 +1118,14 @@ body.dark-mode .stat-label {
 
     .typing-effect {
         color: #333333 !important;
+        white-space: normal !important;
+        display: inline !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .typing-effect::after {
+        content: none !important;
     }
 
     .cursor {

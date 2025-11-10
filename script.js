@@ -8,14 +8,15 @@ const textArray = [
 ];
 let textArrayIndex = 0;
 let charIndex = 0;
+let typingTimeoutId = null;
 
 function type() {
     if (charIndex < textArray[textArrayIndex].length) {
         typedTextElement.textContent += textArray[textArrayIndex].charAt(charIndex);
         charIndex++;
-        setTimeout(type, 50);
+        typingTimeoutId = setTimeout(type, 50);
     } else {
-        setTimeout(erase, 2000);
+        typingTimeoutId = setTimeout(erase, 2000);
     }
 }
 
@@ -23,12 +24,31 @@ function erase() {
     if (charIndex > 0) {
         typedTextElement.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
         charIndex--;
-        setTimeout(erase, 30);
+        typingTimeoutId = setTimeout(erase, 30);
     } else {
         textArrayIndex++;
         if (textArrayIndex >= textArray.length) textArrayIndex = 0;
-        setTimeout(type, 500);
+        typingTimeoutId = setTimeout(type, 500);
     }
+}
+
+// Stop typing animation and show full text for printing
+function prepareTypingForPrint() {
+    if (typingTimeoutId) {
+        clearTimeout(typingTimeoutId);
+        typingTimeoutId = null;
+    }
+    // Show the first/main text fully
+    if (typedTextElement) {
+        typedTextElement.textContent = textArray[0];
+    }
+}
+
+// Resume typing animation after printing
+function resumeTypingAfterPrint() {
+    // Reset to current state and continue
+    charIndex = typedTextElement.textContent.length;
+    typingTimeoutId = setTimeout(erase, 2000);
 }
 
 // Start typing effect when page loads (lock width to avoid layout shift)
@@ -97,7 +117,17 @@ document.querySelectorAll('.section').forEach(section => {
 
 // PDF Download Functionality - replaced with simple print
 document.getElementById('downloadPDF').addEventListener('click', () => {
-    window.print();
+    prepareTypingForPrint();
+    
+    // Small delay to ensure text is rendered
+    setTimeout(() => {
+        window.print();
+    }, 100);
+});
+
+// Listen for after print to resume animation
+window.addEventListener('afterprint', () => {
+    resumeTypingAfterPrint();
 });
 
 // Notification function
